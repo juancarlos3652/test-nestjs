@@ -4,30 +4,34 @@ import { v4 } from 'uuid';
 
 @Injectable()
 export class TasksService {
-  private tasks: Task[] = [{
-    id: 'i',
-    title: 'first title',
-    description: 'some task',
-    status: TaskStatus.PENDING,
-  }]
+  private tasks: Task[] = [
+    {
+      id: 'i',
+      title: 'first title',
+      description: 'some task',
+      status: TaskStatus.PENDING,
+    },
+  ];
 
-  getAllTasks(){
+  getAllTasks() {
     return this.tasks;
   }
 
-  createTask(title: string, description: string){
+  createTask(title: string, description: string) {
     const task: Task = {
       id: v4(),
       title,
       description,
       status: TaskStatus.PENDING,
-    }
+    };
 
     this.tasks.push(task);
     return task;
   }
-  
-  updateTask(){}
-  
-  deleteTask(){}
+
+  updateTask() {}
+
+  deleteTask(id: string) {
+    this.tasks = this.tasks.filter((task) => task.id !== id);
+  }
 }
