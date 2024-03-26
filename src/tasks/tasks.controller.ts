@@ -5,6 +5,7 @@ import {
   Post,
   Patch,
   Delete,
+  Query,
   Param,
 } from '@nestjs/common';
 import { TasksService } from './tasks.service';
@@ -16,7 +17,9 @@ export class TasksController {
   constructor(private tasksService: TasksService) {}
 
   @Get()
-  getAllTasks() {
+  findAll(@Query('title') title?: string): Task[] {
+    if (title) return this.tasksService.getTasksByTitle(title);
+
     return this.tasksService.getAllTasks();
   }
 

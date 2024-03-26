@@ -14,8 +14,16 @@ export class TasksService {
     },
   ];
 
-  getAllTasks() {
+  getAllTasks(title?: string): Task[] {
+    if (title)
+      return this.tasks.filter((task) =>
+        task.title.toLowerCase().includes(title.toLowerCase()),
+      );
     return this.tasks;
+  }
+
+  getTasksByTitle(title: string): Task[] {
+    return this.getAllTasks(title);
   }
 
   createTask(title: string, description: string) {
@@ -25,7 +33,6 @@ export class TasksService {
       description,
       status: TaskStatus.PENDING,
     };
-
     this.tasks.push(task);
     return task;
   }
